@@ -5,3 +5,4 @@ Interscore - это веб-приложение, реализующее сист
 В разработке применяется стек технологий Angular + Java/SpringBoot/RESTful + PostgreSQL.
 
 В данном репозитории хранится Backend.
+Frontend: https://github.com/KluevJakov/InterscoreFront
