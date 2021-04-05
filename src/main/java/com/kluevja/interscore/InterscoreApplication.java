@@ -1,4 +1,4 @@
-package com.kluevja.interscore.service;
+package com.kluevja.interscore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

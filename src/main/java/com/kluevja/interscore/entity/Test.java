@@ -1,21 +1,21 @@
 package com.kluevja.interscore.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.Set;
 
 @Entity
-public class Question {
+public class Test {
     @Id
     private long id;
     private String name;
     private String discribtion;
-    private String text;
     private boolean isAccepted;
     @ManyToMany
-    private Set<Interview> interviews;
+    private Set<Poll> polls;
+    @ManyToMany
+    private Set<Option> options;
     @ManyToMany
     private Set<Category> categories;
 }

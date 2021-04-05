@@ -1,6 +1,6 @@
-package com.kluevja.interscore.repository;
+package com.kluevja.interscore.controller;
 
-import com.kluevja.interscore.controller.UserRepository;
+import com.kluevja.interscore.repository.UserRepository;
 import com.kluevja.interscore.entity.User;
 import org.springframework.web.bind.annotation.*;
 

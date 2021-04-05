@@ -6,11 +6,13 @@ import javax.persistence.ManyToMany;
 import java.util.Set;
 
 @Entity
-public class Option {
+public class Category {
     @Id
     private long id;
-    private String text;
-    private boolean isTrue;
+    private Category parent;
+    private String name;
     @ManyToMany
     private Set<Test> tests;
+    @ManyToMany
+    private Set<Question> questions;
 }
