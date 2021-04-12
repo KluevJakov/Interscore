@@ -2,6 +2,8 @@ package com.kluevja.interscore.entity;
 
 import javax.persistence.*;
 import java.util.Set;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 @Entity
 public class User {
@@ -17,7 +19,9 @@ public class User {
     private String sex;
     private String location;
     private String phone;
+    @Email
     private String email;
+    @Size(min = 8, max = 32)
     private String password;
     private String langs;
 

@@ -13,8 +13,6 @@ public class Test {
     private String discribtion;
     private boolean isAccepted;
     @ManyToMany
-    private Set<Poll> polls;
-    @ManyToMany
     private Set<Option> options;
     @ManyToMany
     private Set<Category> categories;

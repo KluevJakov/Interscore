@@ -11,6 +11,4 @@ public class Option {
     private long id;
     private String text;
     private boolean isTrue;
-    @ManyToMany
-    private Set<Test> tests;
 }

@@ -15,7 +15,5 @@ public class Question {
     private String text;
     private boolean isAccepted;
     @ManyToMany
-    private Set<Interview> interviews;
-    @ManyToMany
     private Set<Category> categories;
 }
