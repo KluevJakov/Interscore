@@ -1,28 +1,38 @@
 package com.kluevja.interscore.controller;
 
-import com.kluevja.interscore.repository.UserRepository;
-import com.kluevja.interscore.entity.User;
+import com.kluevja.interscore.entity.UserEntity;
+import com.kluevja.interscore.security.AuthResponse;
+import com.kluevja.interscore.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("http://localhost:4200")
 public class UserController {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody UserEntity userEntity) {
+        System.out.println("Принял LOG Запрос");
+        if(userService.canLogin(userEntity)) {
+            AuthResponse response = userService.login(userEntity);
+            return ResponseEntity.ok().body(response);
+        }
+        return ResponseEntity.badRequest().body("Не удалось войти в систему. Проверьте логин и пароль и повторите снова.");
     }
 
-    @GetMapping("/users")
-    public List<User> getUsers() {
-        return (List<User>) userRepository.findAll();
-    }
-
-    @PostMapping("/users")
-    void addUser(@RequestBody User user) {
-        userRepository.save(user);
+    @PostMapping("/registration")
+    public ResponseEntity register(@RequestBody UserEntity userEntity) {
+        System.out.println("Принял REG Запрос");
+        if(userService.canRegister(userEntity)) {
+            System.out.println("Можешь зарегистрироваться");
+            AuthResponse response = userService.register(userEntity);
+            return ResponseEntity.ok().body(response);
+        }
+        System.out.println("Что-то пошло не так");
+        return ResponseEntity.badRequest().body("Пользователь с данным именем или email уже существует.");
     }
 }

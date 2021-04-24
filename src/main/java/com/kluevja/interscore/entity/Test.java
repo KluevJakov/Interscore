@@ -8,7 +8,7 @@ import java.util.Set;
 @Entity
 public class Test {
     @Id
-    private long id;
+    private Long id;
     private String name;
     private String discribtion;
     private boolean isAccepted;

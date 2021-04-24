@@ -7,7 +7,7 @@ import java.util.Set;
 @Entity
 public class Category {
     @Id
-    private long id;
+    private Long id;
     @Size(min = 4, max = 20)
     private String name;
     @OneToOne

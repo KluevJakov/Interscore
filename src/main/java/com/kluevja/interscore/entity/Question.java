@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 public class Question {
     @Id
-    private long id;
+    private Long id;
     private String name;
     private String discribtion;
     private String text;

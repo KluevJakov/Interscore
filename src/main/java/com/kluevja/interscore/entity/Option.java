@@ -8,7 +8,7 @@ import java.util.Set;
 @Entity
 public class Option {
     @Id
-    private long id;
+    private Long id;
     private String text;
     private boolean isTrue;
 }

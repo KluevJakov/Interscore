@@ -8,13 +8,13 @@ public class Poll {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String name;
     private boolean isAccepted;
     @ManyToOne
-    private User interviewer;
+    private UserEntity interviewer;
     @ManyToOne
-    private User interviewee;
+    private UserEntity interviewee;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Test> tests;
 }
