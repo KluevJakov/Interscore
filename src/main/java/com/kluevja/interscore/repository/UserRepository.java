@@ -11,10 +11,12 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     /*
-    @Query(value = "SELECT u FROM User u")
+    @Query(value = "SELECT u FROM user_entity u")
+     */
     List<UserEntity> findAll();
+    /*
     @Query(value = "SELECT u FROM User u WHERE u.email = ?1")
     */
-    UserDetails findByEmail(String email);
+    UserEntity findByEmail(String email);
     boolean existsByEmail(String email);
 }

@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
     @Autowired
     UserRepository userRepository;
@@ -44,15 +44,5 @@ public class UserService implements UserDetailsService {
     public boolean canRegister(UserEntity userEntity) {
         boolean isUserAlreadyExists = userRepository.existsByEmail(userEntity.getEmail());
         return !isUserAlreadyExists;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserDetails u = userRepository.findByEmail(s);
-        if(u == null) {
-            throw new UsernameNotFoundException("Пользователь не найден");
-        } else {
-            return u;
-        }
     }
 }

@@ -1,10 +1,13 @@
 package com.kluevja.interscore.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.kluevja.interscore.entity.UserEntity;
 import com.kluevja.interscore.security.AuthResponse;
 import com.kluevja.interscore.service.UserService;
+import com.sun.security.auth.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,9 +17,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/profile/{id:\\d+}")
+    public ResponseEntity userPage(@AuthenticationPrincipal UserPrincipal principal, @PathVariable("id") UserEntity user) {
+        System.out.println(user.getId());
+        if(user != null) {
+            return ResponseEntity.ok(user);
+        }
+        return ResponseEntity.badRequest().body("Данного пользователя не найдено");
+    }
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody UserEntity userEntity) {
-        System.out.println("Принял LOG Запрос");
         if(userService.canLogin(userEntity)) {
             AuthResponse response = userService.login(userEntity);
             return ResponseEntity.ok().body(response);
@@ -26,13 +37,10 @@ public class UserController {
 
     @PostMapping("/registration")
     public ResponseEntity register(@RequestBody UserEntity userEntity) {
-        System.out.println("Принял REG Запрос");
         if(userService.canRegister(userEntity)) {
-            System.out.println("Можешь зарегистрироваться");
             AuthResponse response = userService.register(userEntity);
             return ResponseEntity.ok().body(response);
         }
-        System.out.println("Что-то пошло не так");
         return ResponseEntity.badRequest().body("Пользователь с данным именем или email уже существует.");
     }
 }

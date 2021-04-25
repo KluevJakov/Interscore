@@ -1,5 +1,6 @@
 package com.kluevja.interscore.configuration;
 
+import com.kluevja.interscore.entity.Role;
 import com.kluevja.interscore.security.CustomAuthenticationEntryPoint;
 import com.kluevja.interscore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -21,7 +23,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserService userService;
+    private UserDetailsService userService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -38,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/registration").permitAll()
+                .antMatchers("/profile","/profile/*").permitAll()
                 .anyRequest().authenticated();
         http
                 .csrf().disable()
