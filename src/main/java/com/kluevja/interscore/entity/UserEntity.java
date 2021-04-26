@@ -67,6 +67,14 @@ public class UserEntity {
         return id;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     public void setRole(Role role) {
         this.role = role;
     }
