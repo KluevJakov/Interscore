@@ -47,6 +47,10 @@ public class UserEntity {
         return this.role.equals(Role.ADMIN);
     }
 
+    public boolean isInterviewer(){
+        return this.role.equals(Role.INTERVIEWER);
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

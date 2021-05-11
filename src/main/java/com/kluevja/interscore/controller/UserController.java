@@ -2,6 +2,7 @@ package com.kluevja.interscore.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.kluevja.interscore.entity.UserEntity;
+import com.kluevja.interscore.repository.UserRepository;
 import com.kluevja.interscore.security.AuthResponse;
 import com.kluevja.interscore.service.UserService;
 import com.sun.security.auth.UserPrincipal;
@@ -16,14 +17,22 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/profile/{id:\\d+}")
     public ResponseEntity userPage(@AuthenticationPrincipal UserPrincipal principal, @PathVariable("id") UserEntity user) {
-        System.out.println(user.getId());
         if(user != null) {
             return ResponseEntity.ok(user);
         }
         return ResponseEntity.badRequest().body("Данного пользователя не найдено");
+    }
+
+    @GetMapping("/getAllUsers")
+    public ResponseEntity getAllUsers(@AuthenticationPrincipal UserPrincipal principal) {
+        System.out.println("Словил");
+        System.out.println(userRepository.findAll().toString());
+        return ResponseEntity.ok(userRepository.findAll());
     }
 
     @PostMapping("/login")
@@ -32,7 +41,7 @@ public class UserController {
             AuthResponse response = userService.login(userEntity);
             return ResponseEntity.ok().body(response);
         }
-        return ResponseEntity.badRequest().body("Не удалось войти в систему. Проверьте логин и пароль и повторите снова.");
+        return ResponseEntity.badRequest().body("Неверный логин или пароль.");
     }
 
     @PostMapping("/registration")

@@ -32,7 +32,6 @@ public class UserService {
     }
 
     public boolean canLogin(UserEntity logged) {
-        //не может кастануть
         UserEntity userEntity = (UserEntity)userRepository.findByEmail(logged.getEmail());
         return userEntity != null && isPasswordMatches(logged.getPassword(), userEntity.getPassword());
     }
