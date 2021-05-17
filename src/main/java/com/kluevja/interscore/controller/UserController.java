@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("http://localhost:4200")
 public class UserController {
@@ -29,10 +31,10 @@ public class UserController {
     }
 
     @GetMapping("/getAllUsers")
-    public ResponseEntity getAllUsers(@AuthenticationPrincipal UserPrincipal principal) {
+    public List<UserEntity> getAllUsers(@AuthenticationPrincipal UserPrincipal principal) {
         System.out.println("Словил");
         System.out.println(userRepository.findAll().toString());
-        return ResponseEntity.ok(userRepository.findAll());
+        return userRepository.findAll();
     }
 
     @PostMapping("/login")
