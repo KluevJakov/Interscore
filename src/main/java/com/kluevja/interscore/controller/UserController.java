@@ -1,13 +1,17 @@
 package com.kluevja.interscore.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.kluevja.interscore.entity.Poll;
 import com.kluevja.interscore.entity.UserEntity;
+import com.kluevja.interscore.repository.PollRepository;
 import com.kluevja.interscore.repository.UserRepository;
 import com.kluevja.interscore.security.AuthResponse;
 import com.kluevja.interscore.service.UserService;
 import com.sun.security.auth.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +25,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PollRepository pollRepository;
 
     @GetMapping("/profile/{id:\\d+}")
     public ResponseEntity userPage(@AuthenticationPrincipal UserPrincipal principal, @PathVariable("id") UserEntity user) {
@@ -32,13 +38,16 @@ public class UserController {
 
     @GetMapping("/getAllUsers")
     public List<UserEntity> getAllUsers(@AuthenticationPrincipal UserPrincipal principal) {
-        System.out.println("Словил");
-        System.out.println(userRepository.findAll().toString());
+        //System.out.println("Словил");
+        //System.out.println(userRepository.findAll().get(0).getRole().getAuthority());
         return userRepository.findAll();
     }
 
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody UserEntity userEntity) {
+        System.out.println("!!!!");
+        System.out.println(userEntity.getEmail()+" "+userEntity.getPassword());
         if(userService.canLogin(userEntity)) {
             AuthResponse response = userService.login(userEntity);
             return ResponseEntity.ok().body(response);
@@ -53,5 +62,15 @@ public class UserController {
             return ResponseEntity.ok().body(response);
         }
         return ResponseEntity.badRequest().body("Пользователь с данным именем или email уже существует.");
+    }
+
+    @PostMapping("/pollCreate")
+    public String pollCreate(@RequestBody Poll pollEntity) {
+        System.out.println(pollEntity);
+        //System.out.println(pollEntity.getName());
+        //System.out.println(pollEntity.getTests());
+        //pollEntity.setInterviewee();
+        //pollRepository.save(pollEntity);
+        return "success";
     }
 }

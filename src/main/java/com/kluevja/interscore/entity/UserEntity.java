@@ -44,11 +44,11 @@ public class UserEntity {
     }
 
     public boolean isAdmin(){
-        return this.role.equals(Role.ADMIN);
+        return this.role.equals(Role.ROLE_ADMIN);
     }
 
     public boolean isInterviewer(){
-        return this.role.equals(Role.INTERVIEWER);
+        return this.role.equals(Role.ROLE_INTERVIEWER);
     }
 
     public void setId(Long id) {

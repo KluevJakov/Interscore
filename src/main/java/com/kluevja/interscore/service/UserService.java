@@ -26,7 +26,7 @@ public class UserService {
 
     public AuthResponse register(UserEntity userEntity) {
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        userEntity.setRole(Role.USER);
+        userEntity.setRole(Role.ROLE_USER);
         userRepository.save(userEntity);
         return new AuthResponse(userEntity);
     }
