@@ -1,5 +1,7 @@
 package com.kluevja.interscore.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -10,6 +12,7 @@ public class Option {
     @Id
     private Long id;
     private String text;
+    @JsonProperty
     private boolean isTrue;
 
     @Override

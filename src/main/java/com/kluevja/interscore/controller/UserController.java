@@ -1,6 +1,7 @@
 package com.kluevja.interscore.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.kluevja.interscore.entity.Option;
 import com.kluevja.interscore.entity.Poll;
 import com.kluevja.interscore.entity.UserEntity;
 import com.kluevja.interscore.repository.PollRepository;
@@ -9,13 +10,18 @@ import com.kluevja.interscore.security.AuthResponse;
 import com.kluevja.interscore.service.UserService;
 import com.sun.security.auth.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
@@ -72,5 +78,19 @@ public class UserController {
         //pollEntity.setInterviewee();
         //pollRepository.save(pollEntity);
         return "success";
+    }
+
+    @PostMapping("/uploadFile/{id}")
+    public ResponseEntity uploadFile(@RequestBody String photoUrl, @PathVariable Long id) {
+        System.out.println(photoUrl);
+        Optional<UserEntity> user = userRepository.findById(id);
+
+        if(user.isPresent()){
+            UserEntity userPreset = user.get();
+            userPreset.setPhoto(photoUrl);
+            userRepository.save(userPreset);
+        }
+
+        return ResponseEntity.ok().body("hi");
     }
 }
