@@ -115,7 +115,7 @@ public class UserController {
 
     @GetMapping("/getMyPolls/{id}")
     public List<Poll> getMyPolls(@PathVariable Long id) {
-        return pollRepository.findByInterviewer(id);
+        return pollRepository.findByInterviewerId(id);
     }
 
     @PostMapping("/uploadFile/{id}")
