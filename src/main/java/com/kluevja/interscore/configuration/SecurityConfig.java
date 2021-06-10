@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/registration", "/pollCreate","/uploadFile/**","/categoryCreate/**").permitAll()
-                .antMatchers("/profile","/profile/*").permitAll()//.hasAnyAuthority("USER","ADMIN","INTERVIEWER")
+                .antMatchers("/profile","/profile/*","/poll","/poll/*").permitAll()//.hasAnyAuthority("USER","ADMIN","INTERVIEWER")
                 .antMatchers("/getAllUsers","/getAllCategories","/getMyPolls/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().disable();

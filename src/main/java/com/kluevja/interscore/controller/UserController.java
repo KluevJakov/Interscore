@@ -45,6 +45,16 @@ public class UserController {
         return ResponseEntity.badRequest().body("Данного пользователя не найдено");
     }
 
+    @GetMapping("/poll/{id}")
+    public Poll getPoll(@PathVariable("id") Long idPoll) {
+        Optional<Poll> pollEntity = pollRepository.findById(idPoll);
+        if(pollEntity.isPresent()) {
+            return pollEntity.get();
+        }else{
+            return null;
+        }
+    }
+
     @GetMapping("/getAllUsers")
     public List<UserEntity> getAllUsers(@AuthenticationPrincipal UserPrincipal principal) {
         //System.out.println("Словил");
