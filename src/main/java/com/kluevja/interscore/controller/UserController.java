@@ -103,6 +103,19 @@ public class UserController {
         return "success";
     }
 
+    @PostMapping("/answerPoll")
+    public String answerPoll(@RequestBody Poll pollEntity) {
+        System.out.println(pollEntity);
+        for(Test t : pollEntity.getTests()) {
+            for(Option o : t.getOptions()) {
+                optionRepository.save(o);
+            }
+            testRepository.save(t);
+        }
+        pollRepository.save(pollEntity);
+        return "success";
+    }
+
     @PostMapping("/categoryCreate")
     public String categoryCreate(@RequestBody Category categoryEntity) {
         System.out.println(categoryEntity);

@@ -15,7 +15,8 @@ public class Poll {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private boolean isAccepted;
+    @JsonProperty
+    private boolean accepted;
     private String createDate;
     @ManyToOne
     private UserEntity interviewer;
@@ -41,11 +42,11 @@ public class Poll {
     }
 
     public boolean isAccepted() {
-        return isAccepted;
+        return accepted;
     }
 
     public void setAccepted(boolean accepted) {
-        isAccepted = accepted;
+        this.accepted = accepted;
     }
 
     public UserEntity getInterviewer() {
@@ -85,7 +86,7 @@ public class Poll {
         return "Poll{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", isAccepted=" + isAccepted +
+                ", accepted=" + accepted +
                 ", createDate=" + createDate +
                 ", interviewer=" + interviewer +
                 ", interviewee=" + interviewee +

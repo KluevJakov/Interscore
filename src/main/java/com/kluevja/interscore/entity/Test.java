@@ -1,5 +1,7 @@
 package com.kluevja.interscore.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +13,8 @@ public class Test {
     private Long id;
     private String name;
     private String discribtion;
-    private boolean isAccepted;
+    @JsonProperty
+    private boolean accepted;
     @ManyToMany
     private List<Option> options;
 
@@ -23,7 +26,7 @@ public class Test {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", discribtion='" + discribtion + '\'' +
-                ", isAccepted=" + isAccepted +
+                ", accepted=" + accepted +
                 ", options=" + options +
                 ", category=" + category +
                 '}';
@@ -54,11 +57,11 @@ public class Test {
     }
 
     public boolean isAccepted() {
-        return isAccepted;
+        return accepted;
     }
 
     public void setAccepted(boolean accepted) {
-        isAccepted = accepted;
+        this.accepted = accepted;
     }
 
     public List<Option> getOptions() {
