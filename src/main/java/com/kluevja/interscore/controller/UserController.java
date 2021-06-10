@@ -1,11 +1,8 @@
 package com.kluevja.interscore.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.kluevja.interscore.entity.Option;
-import com.kluevja.interscore.entity.Poll;
-import com.kluevja.interscore.entity.UserEntity;
-import com.kluevja.interscore.repository.PollRepository;
-import com.kluevja.interscore.repository.UserRepository;
+import com.kluevja.interscore.entity.*;
+import com.kluevja.interscore.repository.*;
 import com.kluevja.interscore.security.AuthResponse;
 import com.kluevja.interscore.service.UserService;
 import com.sun.security.auth.UserPrincipal;
@@ -33,6 +30,12 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private PollRepository pollRepository;
+    @Autowired
+    private TestRepository testRepository;
+    @Autowired
+    private OptionRepository optionRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping("/profile/{id:\\d+}")
     public ResponseEntity userPage(@AuthenticationPrincipal UserPrincipal principal, @PathVariable("id") UserEntity user) {
@@ -73,11 +76,46 @@ public class UserController {
     @PostMapping("/pollCreate")
     public String pollCreate(@RequestBody Poll pollEntity) {
         System.out.println(pollEntity);
-        //System.out.println(pollEntity.getName());
-        //System.out.println(pollEntity.getTests());
-        //pollEntity.setInterviewee();
-        //pollRepository.save(pollEntity);
+
+        UserEntity interviewee = userRepository.findById(pollEntity.getInterviewee().getId()).get();
+        UserEntity interviewer = userRepository.findById(pollEntity.getInterviewer().getId()).get();
+
+        pollEntity.setInterviewee(interviewee);
+        pollEntity.setInterviewer(interviewer);
+
+        for(Test t : pollEntity.getTests()) {
+            for(Option o : t.getOptions()) {
+                optionRepository.save(o);
+            }
+            testRepository.save(t);
+        }
+        pollRepository.save(pollEntity);
         return "success";
+    }
+
+    @PostMapping("/categoryCreate")
+    public String categoryCreate(@RequestBody Category categoryEntity) {
+        System.out.println(categoryEntity);
+
+        if(categoryEntity.getParent().getId() == null){
+            categoryEntity.setParent(null);
+        }else{
+            Category categoryRoot = categoryRepository.findById(categoryEntity.getParent().getId()).get();
+            categoryEntity.setParent(categoryRoot);
+        }
+
+        categoryRepository.save(categoryEntity);
+        return "success";
+    }
+
+    @GetMapping("/getAllCategories")
+    public List<Category> getAllCategories(@AuthenticationPrincipal UserPrincipal principal) {
+        return categoryRepository.findAll();
+    }
+
+    @GetMapping("/getMyPolls/{id}")
+    public List<Poll> getMyPolls(@PathVariable Long id) {
+        return pollRepository.findByInterviewer(id);
     }
 
     @PostMapping("/uploadFile/{id}")

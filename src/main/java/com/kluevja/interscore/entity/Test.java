@@ -1,22 +1,21 @@
 package com.kluevja.interscore.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 public class Test {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String discribtion;
     private boolean isAccepted;
     @ManyToMany
     private List<Option> options;
-    @ManyToMany
-    private List<Category> categories;
+
+    private String category;
 
     @Override
     public String toString() {
@@ -26,7 +25,7 @@ public class Test {
                 ", discribtion='" + discribtion + '\'' +
                 ", isAccepted=" + isAccepted +
                 ", options=" + options +
-                ", categories=" + categories +
+                ", category=" + category +
                 '}';
     }
 
@@ -70,11 +69,11 @@ public class Test {
         this.options = options;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

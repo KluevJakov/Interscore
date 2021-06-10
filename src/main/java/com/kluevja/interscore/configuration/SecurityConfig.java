@@ -39,9 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/login", "/registration", "/pollCreate","/uploadFile/**").permitAll()
+                .antMatchers("/", "/login", "/registration", "/pollCreate","/uploadFile/**","/categoryCreate/**").permitAll()
                 .antMatchers("/profile","/profile/*").permitAll()//.hasAnyAuthority("USER","ADMIN","INTERVIEWER")
-                .antMatchers("/getAllUsers").permitAll()
+                .antMatchers("/getAllUsers","/getAllCategories","/getMyPolls/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().disable();
 

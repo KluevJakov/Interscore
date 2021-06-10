@@ -2,14 +2,13 @@ package com.kluevja.interscore.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 public class Option {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String text;
     @JsonProperty
