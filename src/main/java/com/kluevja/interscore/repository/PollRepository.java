@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface PollRepository extends JpaRepository<Poll, Long> {
     List<Poll> findByInterviewerId(Long id);
+    List<Poll> findByIntervieweeId(Long id);
 }

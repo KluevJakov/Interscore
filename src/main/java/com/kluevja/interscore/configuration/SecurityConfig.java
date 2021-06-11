@@ -39,9 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/login", "/registration", "/answerPoll", "/pollCreate","/uploadFile/**","/categoryCreate/**").permitAll()
-                .antMatchers("/profile","/profile/*","/poll","/poll/*").permitAll()//.hasAnyAuthority("USER","ADMIN","INTERVIEWER")
-                .antMatchers("/getAllUsers","/getAllCategories","/getMyPolls/**").permitAll()
+                .antMatchers("/", "/login", "/registration", "/answerPoll", "/pollCreate", "/createInterview", "/answerInterview","/uploadFile/**","/categoryCreate/**").permitAll()
+                .antMatchers("/profile","/profile/*","/poll","/poll/*","/interview/**").permitAll()//.hasAnyAuthority("USER","ADMIN","INTERVIEWER")
+                .antMatchers("/getAllUsers","/getAllCategories","/getMyInterviews/**","/getMyInterviewsUser/**","/getMyPolls/**","/getMyPollsUser/**","/getMyInterviews/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().disable();
 

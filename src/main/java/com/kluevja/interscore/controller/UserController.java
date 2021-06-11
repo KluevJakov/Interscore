@@ -36,6 +36,10 @@ public class UserController {
     private OptionRepository optionRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private InterviewRepository interviewRepository;
+    @Autowired
+    private QuestionRepository questionRepository;
 
     @GetMapping("/profile/{id:\\d+}")
     public ResponseEntity userPage(@AuthenticationPrincipal UserPrincipal principal, @PathVariable("id") UserEntity user) {
@@ -55,18 +59,24 @@ public class UserController {
         }
     }
 
+    @GetMapping("/interview/{id}")
+    public Interview getInterview(@PathVariable("id") Long idInterview) {
+        Optional<Interview> interviewEntity = interviewRepository.findById(idInterview);
+        if(interviewEntity.isPresent()) {
+            return interviewEntity.get();
+        }else{
+            return null;
+        }
+    }
+
     @GetMapping("/getAllUsers")
     public List<UserEntity> getAllUsers(@AuthenticationPrincipal UserPrincipal principal) {
-        //System.out.println("Словил");
-        //System.out.println(userRepository.findAll().get(0).getRole().getAuthority());
         return userRepository.findAll();
     }
 
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody UserEntity userEntity) {
-        System.out.println("!!!!");
-        System.out.println(userEntity.getEmail()+" "+userEntity.getPassword());
         if(userService.canLogin(userEntity)) {
             AuthResponse response = userService.login(userEntity);
             return ResponseEntity.ok().body(response);
@@ -83,10 +93,35 @@ public class UserController {
         return ResponseEntity.badRequest().body("Пользователь с данным именем или email уже существует.");
     }
 
+    @PostMapping("/createInterview")
+    public String createInterview(@RequestBody Interview interviewEntity) {
+        System.out.println(interviewEntity);
+
+        UserEntity interviewee = userRepository.findById(interviewEntity.getInterviewee().getId()).get();
+        UserEntity interviewer = userRepository.findById(interviewEntity.getInterviewer().getId()).get();
+
+        interviewEntity.setInterviewee(interviewee);
+        interviewEntity.setInterviewer(interviewer);
+
+        for(Question t : interviewEntity.getQuestions()) {
+            questionRepository.save(t);
+        }
+        interviewRepository.save(interviewEntity);
+        return "success";
+    }
+
+    @GetMapping("/getMyInterviews/{id}")
+    public List<Interview> getMyInterviews(@PathVariable Long id) {
+        return interviewRepository.findByInterviewerId(id);
+    }
+
+    @GetMapping("/getMyInterviewsUser/{id}")
+    public List<Interview> getMyInterviewsUser(@PathVariable Long id) {
+        return interviewRepository.findByIntervieweeId(id);
+    }
+
     @PostMapping("/pollCreate")
     public String pollCreate(@RequestBody Poll pollEntity) {
-        System.out.println(pollEntity);
-
         UserEntity interviewee = userRepository.findById(pollEntity.getInterviewee().getId()).get();
         UserEntity interviewer = userRepository.findById(pollEntity.getInterviewer().getId()).get();
 
@@ -105,7 +140,6 @@ public class UserController {
 
     @PostMapping("/answerPoll")
     public String answerPoll(@RequestBody Poll pollEntity) {
-        System.out.println(pollEntity);
         for(Test t : pollEntity.getTests()) {
             for(Option o : t.getOptions()) {
                 optionRepository.save(o);
@@ -118,15 +152,12 @@ public class UserController {
 
     @PostMapping("/categoryCreate")
     public String categoryCreate(@RequestBody Category categoryEntity) {
-        System.out.println(categoryEntity);
-
         if(categoryEntity.getParent().getId() == null){
             categoryEntity.setParent(null);
         }else{
             Category categoryRoot = categoryRepository.findById(categoryEntity.getParent().getId()).get();
             categoryEntity.setParent(categoryRoot);
         }
-
         categoryRepository.save(categoryEntity);
         return "success";
     }
@@ -141,9 +172,13 @@ public class UserController {
         return pollRepository.findByInterviewerId(id);
     }
 
+    @GetMapping("/getMyPollsUser/{id}")
+    public List<Poll> getMyPollsUser(@PathVariable Long id) {
+        return pollRepository.findByIntervieweeId(id);
+    }
+
     @PostMapping("/uploadFile/{id}")
     public ResponseEntity uploadFile(@RequestBody String photoUrl, @PathVariable Long id) {
-        System.out.println(photoUrl);
         Optional<UserEntity> user = userRepository.findById(id);
 
         if(user.isPresent()){
