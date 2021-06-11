@@ -110,6 +110,15 @@ public class UserController {
         return "success";
     }
 
+    @PostMapping("/answerInterview")
+    public String answerInterview(@RequestBody Interview interviewEntity) {
+        for(Question t : interviewEntity.getQuestions()) {
+            questionRepository.save(t);
+        }
+        interviewRepository.save(interviewEntity);
+        return "success";
+    }
+
     @GetMapping("/getMyInterviews/{id}")
     public List<Interview> getMyInterviews(@PathVariable Long id) {
         return interviewRepository.findByInterviewerId(id);
