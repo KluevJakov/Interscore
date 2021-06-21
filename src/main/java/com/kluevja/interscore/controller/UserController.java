@@ -1,22 +1,14 @@
 package com.kluevja.interscore.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.kluevja.interscore.entity.*;
 import com.kluevja.interscore.repository.*;
 import com.kluevja.interscore.security.AuthResponse;
 import com.kluevja.interscore.service.UserService;
 import com.sun.security.auth.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
