@@ -66,6 +66,10 @@ public class UserController {
         return userRepository.findAll();
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "ok";
+    }
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody UserEntity userEntity) {
@@ -73,7 +77,16 @@ public class UserController {
             AuthResponse response = userService.login(userEntity);
             return ResponseEntity.ok().body(response);
         }
-        return ResponseEntity.badRequest().body("Неверный логин или пароль.");
+        return ResponseEntity.badRequest().body("Ошибка при авторизации");
+    }
+
+    @GetMapping("/activation/{code}")
+    public String activation(@PathVariable String code) {
+        if(userService.activate(code)){
+            return "redirect:/login";
+        }else{
+            return "redirect:/login";
+        }
     }
 
     @PostMapping("/registration")

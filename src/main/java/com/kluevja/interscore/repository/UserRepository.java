@@ -7,16 +7,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    /*
-    @Query(value = "SELECT u FROM user_entity u")
-     */
+    Optional<UserEntity> findByActivationCode(String activationCode);
     List<UserEntity> findAll();
-    /*
-    @Query(value = "SELECT u FROM User u WHERE u.email = ?1")
-    */
-    UserEntity findByEmail(String email);
+    Optional<UserEntity> findByEmail(String email);
     boolean existsByEmail(String email);
 }

@@ -1,14 +1,18 @@
 package com.kluevja.interscore.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 @Entity
-public class UserEntity {
+public class UserEntity implements UserDetails {
 
-    @Id
+        @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private boolean isActive;
@@ -26,6 +30,7 @@ public class UserEntity {
     @Size(min = 8, max = 32)
     private String password;
     private String langs;
+    private String activationCode;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -45,6 +50,14 @@ public class UserEntity {
 
     public boolean isAdmin(){
         return this.role.equals(Role.ROLE_ADMIN);
+    }
+
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
     }
 
     public boolean isInterviewer(){
@@ -107,8 +120,43 @@ public class UserEntity {
         return email;
     }
 
+    @JsonDeserialize(using = CustomAuthorityDeserializer.class)
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new ArrayList<Role>(Collections.singleton(role));
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        if(this.activationCode != null){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public void setPassword(String password) {

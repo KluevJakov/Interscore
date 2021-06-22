@@ -26,6 +26,6 @@ public class MailService {
     }
 
     public void activate(UserEntity u) {
-        send(u.getEmail(), "Мы рады, что вы с нами", "Активируйте аккаунт по ссылке:  http://localhost:8080/activationProfile/" /*+ u.getActivationCode()*/);
+        send(u.getEmail(), "Мы рады, что вы с нами", "Активируйте аккаунт по ссылке:  http://localhost:4200/activation/" + u.getActivationCode());
     }
 }

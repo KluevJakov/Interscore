@@ -36,15 +36,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/login", "/registration", "/answerPoll", "/pollCreate", "/createInterview", "/answerInterview","/uploadFile/**","/categoryCreate/**").permitAll()
+                .antMatchers("/", "/login/**", "/registration", "/activation/**","/answerPoll", "/pollCreate", "/createInterview", "/answerInterview","/uploadFile/**","/categoryCreate/**").permitAll()
                 .antMatchers("/profile","/profile/*","/poll","/poll/*","/interview/**").permitAll()//.hasAnyAuthority("USER","ADMIN","INTERVIEWER")
                 .antMatchers("/getAllUsers","/getAllCategories","/getMyInterviews/**","/getMyInterviewsUser/**","/getMyPolls/**","/getMyPollsUser/**","/getMyInterviews/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().disable();
+        /*.and().formLogin()
 
-        /*
-        .and().formLogin()
-
+                .loginPage("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/")
@@ -52,8 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
-                .permitAll()
-         */
+                .permitAll();*/
+
         http
                 .csrf().disable()
                 /*.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
