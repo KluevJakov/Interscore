@@ -154,6 +154,7 @@ public class UserController {
 
     @PostMapping("/answerPoll")
     public String answerPoll(@RequestBody Poll pollEntity) {
+        System.out.println(pollEntity);
         for(Test t : pollEntity.getTests()) {
             for(Option o : t.getOptions()) {
                 optionRepository.save(o);

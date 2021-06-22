@@ -1,5 +1,6 @@
 package com.kluevja.interscore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,21 +16,17 @@ public class UserEntity implements UserDetails {
         @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private boolean isActive;
     private String name;
     private String surname;
     private String patronymic;
-    /*@Temporal(value = TemporalType.DATE)*/
     private String birthday;
     private String sex;
     private String photo;
-    private String location;
     private String phone;
     @Email
     private String email;
     @Size(min = 8, max = 32)
     private String password;
-    private String langs;
     private String activationCode;
 
     @Enumerated(EnumType.STRING)
@@ -120,7 +117,8 @@ public class UserEntity implements UserDetails {
         return email;
     }
 
-    @JsonDeserialize(using = CustomAuthorityDeserializer.class)
+    //@JsonDeserialize(using = CustomAuthorityDeserializer.class)
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<Role>(Collections.singleton(role));
