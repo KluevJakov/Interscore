@@ -12,7 +12,7 @@ public class Category {
     private Long id;
     @Size(min = 4, max = 20)
     private String name;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.DETACH)
     private Category parent;
 
     public Category() {

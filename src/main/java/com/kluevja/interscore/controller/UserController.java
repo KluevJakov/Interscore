@@ -177,6 +177,12 @@ public class UserController {
         return "success";
     }
 
+    @GetMapping("/categoryDelete/{id}")
+    public String categoryDelete(@PathVariable Long id) {
+        categoryRepository.deleteById(id);
+        return "success";
+    }
+
     @GetMapping("/getAllCategories")
     public List<Category> getAllCategories(@AuthenticationPrincipal UserPrincipal principal) {
         return categoryRepository.findAll();
