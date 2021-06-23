@@ -1,0 +1,13 @@
+INSERT INTO public.category(id, name, parent_id)VALUES (1, "ООП", null);
+INSERT INTO public.category(id, name, parent_id)VALUES (2, "Основы", 1);
+INSERT INTO public.category(id, name, parent_id)VALUES (3, "Постулаты", 1);
+INSERT INTO public.category(id, name, parent_id)VALUES (4, "Реализация", 1);
+INSERT INTO public.category(id, name, parent_id)VALUES (5, "Java Spring", null);
+INSERT INTO public.category(id, name, parent_id)VALUES (6, "SpringCore", 5);
+INSERT INTO public.category(id, name, parent_id)VALUES (7, "SpringMVC", 5);
+INSERT INTO public.category(id, name, parent_id)VALUES (8, "SpringSecurity", 5);
+INSERT INTO public.category(id, name, parent_id)VALUES (9, "Базы данных", null);
+INSERT INTO public.category(id, name, parent_id)VALUES (10, "Основные понятия", 9);
+INSERT INTO public.category(id, name, parent_id)VALUES (11, "SQL", 9);
+INSERT INTO public.category(id, name, parent_id)VALUES (12, "NoSQL", 9);
+
