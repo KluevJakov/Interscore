@@ -1,13 +1,29 @@
-INSERT INTO public.category(id, name, parent_id)VALUES (1, "ООП", null);
-INSERT INTO public.category(id, name, parent_id)VALUES (2, "Основы", 1);
-INSERT INTO public.category(id, name, parent_id)VALUES (3, "Постулаты", 1);
-INSERT INTO public.category(id, name, parent_id)VALUES (4, "Реализация", 1);
-INSERT INTO public.category(id, name, parent_id)VALUES (5, "Java Spring", null);
-INSERT INTO public.category(id, name, parent_id)VALUES (6, "SpringCore", 5);
-INSERT INTO public.category(id, name, parent_id)VALUES (7, "SpringMVC", 5);
-INSERT INTO public.category(id, name, parent_id)VALUES (8, "SpringSecurity", 5);
-INSERT INTO public.category(id, name, parent_id)VALUES (9, "Базы данных", null);
-INSERT INTO public.category(id, name, parent_id)VALUES (10, "Основные понятия", 9);
-INSERT INTO public.category(id, name, parent_id)VALUES (11, "SQL", 9);
-INSERT INTO public.category(id, name, parent_id)VALUES (12, "NoSQL", 9);
+#Категории
 
+INSERT INTO public.category(id, name, parent_id)VALUES (1, 'ООП', null);
+INSERT INTO public.category(id, name, parent_id)VALUES (2, 'Основы', 1);
+INSERT INTO public.category(id, name, parent_id)VALUES (3, 'Постулаты', 1);
+INSERT INTO public.category(id, name, parent_id)VALUES (4, 'Реализация', 1);
+INSERT INTO public.category(id, name, parent_id)VALUES (5, 'Java Spring', null);
+INSERT INTO public.category(id, name, parent_id)VALUES (6, 'SpringCore', 5);
+INSERT INTO public.category(id, name, parent_id)VALUES (7, 'SpringMVC', 5);
+INSERT INTO public.category(id, name, parent_id)VALUES (8, 'SpringSecurity', 5);
+INSERT INTO public.category(id, name, parent_id)VALUES (9, 'Базы данных', null);
+INSERT INTO public.category(id, name, parent_id)VALUES (10, 'Основные понятия', 9);
+INSERT INTO public.category(id, name, parent_id)VALUES (11, 'SQL', 9);
+INSERT INTO public.category(id, name, parent_id)VALUES (12, 'NoSQL', 9);
+
+#Пользователи
+
+INSERT INTO public.user_entity(id, birthday, email, is_active, langs, location, name, password, patronymic, phone, photo, role, sex, surname, activation_code)
+	VALUES (1, '2000-03-26', 'kluevja@gmail.com', false, null, null, 'Яков', '$2a$10$00ioyrFqxE/bWQtwfpGtwOfS7su9dCVu0rU3pUfeI/kFFJ2sxJVOG', 'Андреевич', '+79371472180', 'https://i.ibb.co/qYnqvgS/IMG-20200222-205639-969.jpg', 'ROLE_ADMIN', 'Male', 'Клюев', null);
+INSERT INTO public.user_entity(id, birthday, email, is_active, langs, location, name, password, patronymic, phone, photo, role, sex, surname, activation_code)
+	VALUES (2, '1998-11-14', 'test1@gmail.com', false, null, null, 'Артём', '$2a$10$00ioyrFqxE/bWQtwfpGtwOfS7su9dCVu0rU3pUfeI/kFFJ2sxJVOG', 'Сергеевич', '+79875436876', '', 'ROLE_USER', 'Male', 'Смирнов', null);
+INSERT INTO public.user_entity(id, birthday, email, is_active, langs, location, name, password, patronymic, phone, photo, role, sex, surname, activation_code)
+	VALUES (3, '2001-08-23', 'test2@gmail.com', false, null, null, 'Тимур', '$2a$10$00ioyrFqxE/bWQtwfpGtwOfS7su9dCVu0rU3pUfeI/kFFJ2sxJVOG', 'Александрович', '+79372376456', '', 'ROLE_USER', 'Male', 'Иванов', null);
+INSERT INTO public.user_entity(id, birthday, email, is_active, langs, location, name, password, patronymic, phone, photo, role, sex, surname, activation_code)
+	VALUES (4, '2002-03-11', 'test3@gmail.com', false, null, null, 'Полина', '$2a$10$00ioyrFqxE/bWQtwfpGtwOfS7su9dCVu0rU3pUfeI/kFFJ2sxJVOG', 'Геннадьевна', '+79371632387', '', 'ROLE_USER', 'Female', 'Петрова', null);
+INSERT INTO public.user_entity(id, birthday, email, is_active, langs, location, name, password, patronymic, phone, photo, role, sex, surname, activation_code)
+	VALUES (5, '2001-06-12', 'test4@gmail.com', false, null, null, 'Елена', '$2a$10$00ioyrFqxE/bWQtwfpGtwOfS7su9dCVu0rU3pUfeI/kFFJ2sxJVOG', 'Алексеевна', '+79276547456', '', 'ROLE_USER', 'Female', 'Алёшина', null);
+INSERT INTO public.user_entity(id, birthday, email, is_active, langs, location, name, password, patronymic, phone, photo, role, sex, surname, activation_code)
+	VALUES (6, '2000-07-15', 'test5@gmail.com', false, null, null, 'Мария', '$2a$10$00ioyrFqxE/bWQtwfpGtwOfS7su9dCVu0rU3pUfeI/kFFJ2sxJVOG', 'Владимировна', '+79270875643', '', 'ROLE_USER', 'Female', 'Сизоненко', null);
